@@ -1,58 +1,124 @@
-const db = [];
+const dbExport = require("../Service/MongoService");
+const dbConfig = require("../Config/dbConfig");
 
 class AlertRepository {
-  async findIndexById(alertId) {
-    return db.findIndex(x => x.id === alertId);
-  }
-
-  async list(searchTerm) {
-    if (searchTerm) {
-      return {
-        sucess: true,
-        alerts: db.find(x => x.searchTerm === searchTerm)
-      };
+  async findById(alertId) {
+    if (dbExport && alertId) {
+      return new Promise((resolve, reject) => {
+        dbExport
+          .then(db => {
+            const collection = db.collection(dbConfig.collection);
+            collection.find({ id: alertId }).toArray((err, alerts) => {
+              if (err) reject(err);
+              resolve(alerts); // retorna o array caso consiga buscar com sucesso
+            });
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
     }
 
-    return { sucess: true, alerts: db };
+    return { sucess: false };
+  }
+
+  async list() {
+    if (dbExport) {
+      return new Promise((resolve, reject) => {
+        dbExport
+          .then(db => {
+            const collection = db.collection(dbConfig.collection);
+            collection.find({}).toArray((err, alerts) => {
+              if (err) reject(err);
+              resolve(alerts); // retorna o array caso consiga buscar com sucesso
+            });
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
+    }
+
+    return { sucess: false };
   }
 
   async create(alert) {
-    if (alert) {
-      const newAlert = { id: db.length, ...alert };
-      db.push(newAlert);
-
-      return { sucess: true, newAlert };
+    if (alert && dbExport) {
+      const newAlert = { id: this.uniqueId(), ...alert };
+      // Usado Promise para que só retorna valor quando terminar a execução da consulta no banco
+      return new Promise((resolve, reject) => {
+        dbExport
+          .then(db => {
+            const collection = db.collection(dbConfig.collection);
+            collection.insertOne(newAlert);
+            resolve(newAlert);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
     }
 
-    return { sucess: false, alert: "Invalid alert" };
+    return { sucess: false };
   }
 
   async update(alert) {
-    if (alert) {
-      const index = this.findIndexById(alert.id);
+    if (alert && dbExport) {
+      // Usado Promise para que só retorna valor quando terminar a execução da consulta no banco
+      const findAlert = this.findById(alert.id);
 
-      if (index !== -1) {
-        db[index] = alert;
+      if (findAlert) {
+        return new Promise((resolve, reject) => {
+          dbExport
+            .then(db => {
+              const collection = db.collection(dbConfig.collection);
+              collection.updateOne(alert);
+              resolve(alert);
+            })
+            .catch(err => {
+              reject(err);
+            });
+        });
       }
-
-      return { sucess: true, alert };
     }
 
     return { sucess: false, alert: "Invalid alert" };
   }
 
-  async delete(alertId) {
-    if (alertId) {
-      const index = this.findIndexById(alertId);
-
-      if (index !== -1) {
-        db.splice(index, 1);
-      }
-
-      return { sucess: true };
+  async delete(alert) {
+    if (alert) {
+      return new Promise((resolve, reject) => {
+        dbExport
+          .then(db => {
+            const collection = db.collection(dbConfig.collection);
+            collection
+              .deleteOne(alert.id)
+              .then(result => {
+                if (result.deletedCount && result.deletedCount > 0) {
+                  resolve(alert);
+                } else {
+                  reject();
+                }
+              })
+              .catch(reject);
+            resolve(alert);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
     }
 
     return { sucess: false, alert: "Invalid alert" };
+  }
+
+  uniqueId() {
+    let uniqueId =
+      Math.random()
+        .toString(36)
+        .substring(2) + new Date().getTime().toString(36);
+
+    return uniqueId;
   }
 }
 

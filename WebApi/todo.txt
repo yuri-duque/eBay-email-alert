@@ -1,10 +1,10 @@
 - Create alert
-  - Salvar no banco
-  - Ativar o contador(cron)
+  V - Salvar no banco
+  V - Ativar o contador(cron)
   - 
-- List alert
-- Update alert
-- Delete alert
+ - List alert
+ - Update alert
+ - Delete alert
 
 - Execute alert
   - Get first 3 products by lowest price

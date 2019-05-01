@@ -8,7 +8,7 @@ class AlertService {
     this.emailService = new EmailService();
     this.ebayService = new EbayService();
 
-    this.sendCromEmail(); // não é nescessario ter await pois não se necessita do resultado
+    this.startupCronEmail(); // não é nescessario ter await pois não se necessita do resultado
   }
 
   async create(request, response) {
