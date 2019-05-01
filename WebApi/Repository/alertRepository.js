@@ -1,27 +1,8 @@
+const { ObjectId } = require("mongodb");
 const dbExport = require("../Service/MongoService");
 const dbConfig = require("../Config/dbConfig");
 
 class AlertRepository {
-  async findById(alertId) {
-    if (dbExport && alertId) {
-      return new Promise((resolve, reject) => {
-        dbExport
-          .then(db => {
-            const collection = db.collection(dbConfig.collection);
-            collection.find({ id: alertId }).toArray((err, alerts) => {
-              if (err) reject(err);
-              resolve(alerts); // retorna o array caso consiga buscar com sucesso
-            });
-          })
-          .catch(err => {
-            reject(err);
-          });
-      });
-    }
-
-    return { sucess: false };
-  }
-
   async list() {
     if (dbExport) {
       return new Promise((resolve, reject) => {
@@ -63,26 +44,26 @@ class AlertRepository {
   }
 
   async update(alert) {
-    if (alert && dbExport) {
-      // Usado Promise para que só retorna valor quando terminar a execução da consulta no banco
-      const findAlert = this.findById(alert.id);
+    let id = new ObjectId(alert._id);
 
-      if (findAlert) {
-        return new Promise((resolve, reject) => {
-          dbExport
-            .then(db => {
-              const collection = db.collection(dbConfig.collection);
-              collection.updateOne(alert);
-              resolve(alert);
+    // Usado Promise para que só retorna valor quando terminar a execução da consulta no banco
+    return new Promise((resolve, reject) => {
+      dbExport
+        .then(db => {
+          const collection = db.collection(dbConfig.collection);
+          collection
+            .updateOne({ _id: id }, { $set: alert })
+            .then(result => {
+              if (result.modifiedCount > 0) {
+                resolve({ ...alert, _id: id.toHexString() });
+              } else {
+                reject();
+              }
             })
-            .catch(err => {
-              reject(err);
-            });
-        });
-      }
-    }
-
-    return { sucess: false, alert: "Invalid alert" };
+            .catch(reject);
+        })
+        .catch(reject);
+    });
   }
 
   async delete(alert) {

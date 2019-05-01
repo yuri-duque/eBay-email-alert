@@ -61,9 +61,9 @@ class AlertService {
     // Pegar o resultado do repository
     const result = await this.repository.list();
 
-    if (result.success) {
+    if (result.length > 0) {
       // Pegar tosoa os alertas que tenham o intervalo desejado intervalo
-      const alerts = result.alerts.filter(x => x.timeInterval === timeIterval);
+      const alerts = result.filter(x => x.timeInterval === timeIterval);
 
       // Enviar E-mail para todos os alertas
       alerts.forEach(async alert => {
@@ -79,6 +79,8 @@ class AlertService {
           alert.email,
           "Seus produtos são: ".concat(productsStrings)
         );
+
+        console.log(`e-mail enviado ${timeIterval} - ${productsStrings}`);
       });
     }
   }
