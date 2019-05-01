@@ -1,0 +1,25 @@
+- Create alert
+  - Salvar no banco
+  - Ativar o contador(cron)
+  - 
+- List alert
+- Update alert
+- Delete alert
+
+- Execute alert
+  - Get first 3 products by lowest price
+  - Send e-mal with these 3 products
+
+- UI
+  - Create alert
+    - Form with fields
+  - Show alerts
+    - List
+  - Redux / context api
+
+- CURL
+  - TODO
+
+- DOCKER
+
+- Documentar no README.md
