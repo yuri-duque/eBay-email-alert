@@ -1,8 +1,8 @@
-- Create alert
-  V - Salvar no banco
-  V - Ativar o contador(cron)
-  - 
- - List alert
+V - Criar Alerta
+  V - Ativar o contador
+  V - Enviar alerta por e-mail
+
+ V - List alert
  - Update alert
  - Delete alert
 

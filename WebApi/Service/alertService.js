@@ -72,15 +72,18 @@ class AlertService {
 
         // Concatena o produto com o preço dele
         const productsStrings = products.map(
-          product => `Name: ${product.name}. Price: ${product.price} `
+          product => `Nome: ${product.name}  --- Preço: ${product.price} \n`
         );
 
-        await this.emailService.send(
+        await this.emailService.sendEmail(
           alert.email,
-          "Seus produtos são: ".concat(productsStrings)
+          `Alerta sobre os produtos relacionado a pesquisa (${
+            alert.searchTerm
+          })`,
+          "Seus produtos são: \n".concat(productsStrings)
         );
 
-        console.log(`e-mail enviado ${timeIterval} - ${productsStrings}`);
+        // console.log(`e-mail enviado ${timeIterval} - ${productsStrings}`);
       });
     }
   }
