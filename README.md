@@ -6,7 +6,7 @@ aplicação que seleciona produtos de acordo com uma pesquisa no ebay e envia al
 
 Comandos npm nescessários inicialização do projeto:
   
-  Certifique-se que você está no diretorio corredo: E:\git\Projetos\React\ebay-email-alert>
+  Certifique-se que você está no diretorio corredo: "E:\git\Projetos\React\ebay-email-alert>"
   
   cd WebApi
 	
