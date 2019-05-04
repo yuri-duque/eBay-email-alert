@@ -68,11 +68,16 @@ class AlertService {
       // Enviar E-mail para todos os alertas
       alerts.forEach(async alert => {
         // acessa a API do ebay e procura os produtos pelo 'searchTerm'
-        const products = await this.ebayService.get(alert.searchTerm);
+        const resultSearch = await this.ebayService.search(alert.searchTerm);
+
+        const products = await this.ebayService.createObjectResultSearch(
+          resultSearch
+        );
 
         // Concatena o produto com o preço dele
         const productsStrings = products.map(
-          product => `Nome: ${product.name}  --- Preço: ${product.price} \n`
+          product =>
+            `Nome: ${product.title}     Preço: ${product.currentPrice}\n`
         );
 
         await this.emailService.sendEmail(
