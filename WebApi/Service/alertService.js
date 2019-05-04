@@ -11,27 +11,29 @@ class AlertService {
     this.startupCronEmail(); // não é nescessario ter await pois não se necessita do resultado
   }
 
+  // Salvando Alerta
   async create(request, response) {
     const result = await this.repository.create(request.body);
-
-    this.startupCronEmail();
 
     response.send(result);
   }
 
+  // Alterando Alerta
   async update(request, response) {
     const result = await this.repository.update(request.body);
 
     response.send(result);
   }
 
+  // Listando Alertas
   async list(request, response) {
-    const queryString = request.query;
+    const queryString = request.query; // Pegando o searchTerm enviado via parametro GET
     const result = await this.repository.list(queryString.searchTerm);
 
     response.send(result);
   }
 
+  // Deletando Alerta
   async delete(request, response) {
     const result = await this.repository.delete(request.body);
 
@@ -40,6 +42,7 @@ class AlertService {
     response.send(result);
   }
 
+  // Inicia a Contagem do intervalo dos alertas
   async startupCronEmail() {
     // 2 minutos(120 segundos)
     setInterval(async () => {
@@ -57,29 +60,31 @@ class AlertService {
     }, 1800 * 1000);
   }
 
+  // Envia o email de alerta
   async sendEmailByAlertInterval(timeIterval) {
-    // Pegar o resultado do repository
+    // Pega o resultado do repository
     const result = await this.repository.list();
 
     if (result.length > 0) {
-      // Pegar tosoa os alertas que tenham o intervalo desejado intervalo
+      // Pega todos os alertas que tenham o intervalo desejado
       const alerts = result.filter(x => x.timeInterval === timeIterval);
 
-      // Enviar E-mail para todos os alertas
       alerts.forEach(async alert => {
         // acessa a API do ebay e procura os produtos pelo 'searchTerm'
         const resultSearch = await this.ebayService.search(alert.searchTerm);
 
+        // refina o resultado da pesquisa no ebay selecionando as caracteristicas que serão uteis
         const products = await this.ebayService.createObjectResultSearch(
           resultSearch
         );
 
-        // Concatena o produto com o preço dele
+        // Concatena o produto
         const productsStrings = products.map(
           product =>
             `Nome: ${product.title}     Preço: ${product.currentPrice}\n`
         );
 
+        // Envia o email de alerta
         await this.emailService.sendEmail(
           alert.email,
           `Alerta sobre os produtos relacionado a pesquisa (${
@@ -87,8 +92,6 @@ class AlertService {
           })`,
           "Seus produtos são: \n".concat(productsStrings)
         );
-
-        // console.log(`e-mail enviado ${timeIterval} - ${productsStrings}`);
       });
     }
   }

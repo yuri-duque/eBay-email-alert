@@ -44,7 +44,7 @@ class AlertRepository {
   }
 
   async update(alert) {
-    let id = new ObjectId(alert.id);
+    const id = new ObjectId(alert.id);
 
     // Usado Promise para que só retorna valor quando terminar a execução da consulta no banco
     return new Promise((resolve, reject) => {
@@ -94,7 +94,7 @@ class AlertRepository {
   }
 
   uniqueId() {
-    let uniqueId =
+    const uniqueId =
       Math.random()
         .toString(36)
         .substring(2) + new Date().getTime().toString(36);

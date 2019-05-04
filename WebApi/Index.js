@@ -13,7 +13,6 @@ app.use(cors());
 const alertService = new AlertService();
 const ebayService = new EbayService();
 
-// req = request / res = response
 app.get("/alerts", async (req, res) => alertService.list(req, res));
 app.post("/alerts", async (req, res) => alertService.create(req, res));
 app.put("/alerts", async (req, res) => alertService.update(req, res));

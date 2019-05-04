@@ -6,10 +6,10 @@ const client = new MongoClient(dbConfig.url);
 const dbExport = new Promise((resolve, reject) => {
   client.connect(err => {
     if (err) {
-      reject(err); // Se der erro, rejeita com o erro
+      reject(err); // Se der erro ao conectar, rejeita com o erro
     }
     const db = client.db(dbConfig.dbName);
-    resolve(db); // Se não der erro(não cair no if acima), retorna o db
+    resolve(db); // Se não der erro ao conectar, retorna o db
   });
 });
 
