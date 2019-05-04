@@ -1,5 +1,5 @@
 module.exports = {
-  url: "mongodb://localhost:27017/easy-notes",
-  dbName: "ebayAlerts",
-  collection: "alerts"
+  url: process.env.mongoUrl || "mongodb://localhost:27017/",
+  dbName: process.env.dbName || "ebayAlerts",
+  collection: process.env.collection || "alerts"
 };

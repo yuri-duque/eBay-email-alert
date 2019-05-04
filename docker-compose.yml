@@ -1,0 +1,43 @@
+version: "3.7"
+services:
+  backend:
+    build: ./WebApi
+    ports:
+      - "3000:80"
+    depends_on:
+      - db
+    networks:
+      - emailalert
+    environment:
+      mongoUrl: mongodb://root:R00t!!t00R@db
+      dbName: ebayAlerts
+      collection: alerts
+      PORT: 80
+  front:
+    build: ./Front
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+    networks:
+      - emailalert
+    environment:
+      REACT_APP_URL_HOST: http://localhost:3000/alerts
+  db:
+    image: mongo
+    restart: always
+    ports:
+      - "27200:27017"
+    volumes:
+      - mongo:/var/lib/mongo
+    networks:
+      - emailalert
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: R00t!!t00R
+      MONGO_INITDB_DATABASE: ebayAlerts
+
+volumes:
+  mongo:
+networks:
+  emailalert:

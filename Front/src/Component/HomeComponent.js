@@ -9,8 +9,6 @@ import {
   NavLink
 } from "reactstrap";
 import FormComponent from "./FormComponent";
-import ResultComponent from "./ResultComponent";
-
 export default class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -50,9 +48,6 @@ export default class HomeComponent extends React.Component {
         </div>
         <div className="flex-auto m-3">
           <FormComponent />
-        </div>
-        <div>
-          <ResultComponent />
         </div>
       </div>
     );

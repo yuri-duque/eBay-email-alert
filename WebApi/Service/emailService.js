@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   secure: false, // true for 465, false for other ports
   auth: {
     user: "yuri.tduque@gmail.com", // Conta que será usada para fazer o envio dos emails
-    pass: "32yuri32"
+    pass: "32yuri3232"
   }
 });
 
