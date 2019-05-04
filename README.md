@@ -8,15 +8,15 @@ Comandos npm nescessários inicialização do projeto:
   
   Certifique-se que você está no diretorio corredo: "E:\git\Projetos\React\ebay-email-alert>"
   
-  cd WebApi
+  > cd WebApi
 	
-  npm install
+  > npm install
   
-  cd..
+  > cd..
   
-  cd Ebay-email-alert
+  > cd Ebay-email-alert
 	
-  npm install
+  > npm install
   
   
   
