@@ -18,7 +18,7 @@ class EbayService {
 
     const products = await this.createObjectResultSearch(result);
 
-    response.sed(products);
+    response.send(products);
   }
 
   async search(searchTerm) {
