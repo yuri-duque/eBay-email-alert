@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   secure: false, // true for 465, false for other ports
   auth: {
     user: "yuri.tduque@gmail.com", // Conta que será usada para fazer o envio dos emails
-    pass: "32yuri3232"
+    pass: "32yuri32"
   }
 });
 
@@ -24,10 +24,9 @@ class EmailService {
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.log(error);
-      } else {
-        console.log(`Email enviado: ${info.response}`);
+        return error.message;
       }
+      return info.response;
     });
   }
 }

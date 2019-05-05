@@ -81,7 +81,9 @@ class AlertService {
         // Concatena o produto
         const productsStrings = products.map(
           product =>
-            `Nome: ${product.title}     Preço: ${product.currentPrice}\n`
+            ` Nome: ${product.title} \n Preço: ${
+              product.currentPrice
+            } \n Link: ${product.viewItemURL} \n\n\n`
         );
 
         // Envia o email de alerta

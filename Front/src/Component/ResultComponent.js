@@ -1,5 +1,5 @@
 import React from "react";
-import { Toast, ToastHeader, ToastBody, CardImg, Table } from "reactstrap";
+import { Toast, ToastHeader, CardImg, Table } from "reactstrap";
 
 export default class ResultComponent extends React.Component {
   constructor(props) {
@@ -9,8 +9,10 @@ export default class ResultComponent extends React.Component {
 
   render() {
     if (this.props.result) {
+      console.log("Result component");
+      console.log(this.props.result);
       return (
-        <div className="p-3 row">
+        <div className="p-2 row">
           {this.props.result.map(product => (
             <Toast className="m-3" key={product.galleryURL}>
               <ToastHeader>{product.title}</ToastHeader>
@@ -26,8 +28,8 @@ export default class ResultComponent extends React.Component {
                       />
                     </td>
                     <td>
-                      <ToastBody>{product.categoryName}</ToastBody>
-                      <ToastBody>{product.currentPrice}</ToastBody>
+                      <p className="font-weight-bold">{product.categoryName}</p>
+                      <p>{product.currentPrice}</p>
                       <a href={product.viewItemURL}>Vizualizar produto</a>
                     </td>
                   </tr>
@@ -37,8 +39,7 @@ export default class ResultComponent extends React.Component {
           ))}
         </div>
       );
-    } else {
-      return null;
     }
+    return null;
   }
 }

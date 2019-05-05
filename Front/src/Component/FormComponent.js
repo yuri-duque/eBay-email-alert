@@ -8,13 +8,17 @@ const congif = require("../Config/Config");
 export default class FormComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { products: [], searchTerm: "", timeInterval: "", email: "" };
+    this.state = {
+      products: [],
+      searchTerm: "",
+      timeInterval: "120",
+      email: ""
+    };
   }
 
   render() {
-    console.log("");
     return (
-      <div>
+      <div className="flex-auto m-3">
         <Form>
           <FormGroup>
             <Label for="SearchTerm" className="font-weight-bold">
@@ -76,7 +80,16 @@ export default class FormComponent extends React.Component {
     );
   }
 
-  onSubmit() {
+  async cleanState() {
+    this.setState({
+      products: [],
+      searchTerm: "",
+      timeInterval: "",
+      email: ""
+    });
+  }
+
+  async onSubmit() {
     let data = {
       products: this.state.products,
       searchTerm: this.state.searchTerm,
@@ -84,8 +97,37 @@ export default class FormComponent extends React.Component {
       email: this.state.email
     };
 
-    axios
-      .post(`${congif.url}`, data)
+    if (!data.searchTerm) {
+      window.alert("O Campo 'Produto' não estar vazio!");
+    } else if (!data.products === []) {
+      window.alert("Falha, o sistema não listou os produtos!");
+    } else if (!data.email) {
+      window.alert("O Campo 'Email' não estar vazio!");
+    } else {
+      const response = await this.requestPost(data);
+
+      if (response.status === 200) {
+        window.alert("Alerta salvo com sucesso!");
+        this.cleanState();
+      } else {
+        window.alert(`Erro ao salvar alerta!\n${response}`);
+      }
+    }
+  }
+
+  async onSearchChange(searchTerm) {
+    const products = await this.requestGet(
+      "/searchProduct?searchTerm=",
+      searchTerm
+    );
+    this.setState({
+      products
+    });
+  }
+
+  async requestGet(parameters, searchTerm) {
+    return axios
+      .get(`${congif.url}${parameters}${searchTerm}`)
       .then(function(response) {
         return response.data;
       })
@@ -94,21 +136,15 @@ export default class FormComponent extends React.Component {
       });
   }
 
-  async onSearchChange(searchTerm) {
-    const products = await this.listProducts(searchTerm);
-    this.setState({
-      products
-    });
-  }
-
-  async listProducts(searchTerm) {
+  async requestPost(data) {
     return axios
-      .get(`${congif.url}/searchProduct?searchTerm=${searchTerm}`)
+      .post(`${congif.url}`, data)
       .then(function(response) {
-        return response.data;
+        return response;
       })
       .catch(function(error) {
         console.log(error);
+        return error;
       });
   }
 }

@@ -2,13 +2,12 @@ import React from "react";
 import {
   Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   NavItem,
   NavLink
 } from "reactstrap";
-import FormComponent from "./FormComponent";
+import { Link } from "react-router-dom";
 export default class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -28,15 +27,23 @@ export default class HomeComponent extends React.Component {
       <div className="flex-wrapper">
         <div className="flex-header">
           <Navbar color="secondary" light expand="md">
-            <NavbarBrand href="/" className="font-weight-bold text-light">
-              Ebay-Email-Alert
+            <NavbarBrand>
+              <Link to="/" className="font-weight-bold text-light no-underline">
+                Ebay-Email-Alert
+              </Link>
             </NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
+
+            <Link
+              to="/alerta"
+              className="font-weight-bold text-light no-underline"
+            >
+              Cadastrar Alerta
+            </Link>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
                   <NavLink
-                    href="https://github.com/yuriDuque"
+                    href="https://github.com/yuriDuque/eBay-email-alert"
                     className="font-weight-bold text-light"
                   >
                     GitHub
@@ -45,9 +52,6 @@ export default class HomeComponent extends React.Component {
               </Nav>
             </Collapse>
           </Navbar>
-        </div>
-        <div className="flex-auto m-3">
-          <FormComponent />
         </div>
       </div>
     );
