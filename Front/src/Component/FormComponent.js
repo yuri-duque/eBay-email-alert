@@ -84,7 +84,7 @@ export default class FormComponent extends React.Component {
     this.setState({
       products: [],
       searchTerm: "",
-      timeInterval: "",
+      timeInterval: "120",
       email: ""
     });
   }
@@ -97,21 +97,10 @@ export default class FormComponent extends React.Component {
       email: this.state.email
     };
 
-    if (!data.searchTerm) {
-      window.alert("O Campo 'Produto' não estar vazio!");
-    } else if (data.products.length == 0) {
-      window.alert("Falha, o sistema não listou os produtos!");
-    } else if (!data.email) {
-      window.alert("O Campo 'Email' não estar vazio!");
-    } else {
+    if (this.validateInsertFields(data)) {
       const response = await this.requestPost(data);
 
-      if (response.status === 200) {
-        window.alert("Alerta salvo com sucesso!");
-        this.cleanState();
-      } else {
-        window.alert(`Erro ao salvar alerta!\n${response}`);
-      }
+      this.validateResponse(response);
     }
   }
 
@@ -146,5 +135,33 @@ export default class FormComponent extends React.Component {
         console.log(error);
         return error;
       });
+  }
+
+  validateResponse(response) {
+    if (response.status === 200) {
+      window.alert("Alerta salvo com sucesso!");
+      this.cleanState();
+    } else if (response.response.status === 406) {
+      window.alert(
+        "Já existe um alerta cadastrado com esse produto para esse email!"
+      );
+    } else {
+      window.alert(`Erro ao salvar alerta!\n${response}`);
+    }
+  }
+
+  validateInsertFields(data) {
+    if (!data.searchTerm) {
+      window.alert("O Campo 'Produto' não estar vazio!");
+      return false;
+    } else if (data.products.length == 0) {
+      window.alert("Falha, o sistema não listou os produtos!");
+      return false;
+    } else if (!data.email) {
+      window.alert("O Campo 'Email' não estar vazio!");
+      return false;
+    }
+
+    return true;
   }
 }

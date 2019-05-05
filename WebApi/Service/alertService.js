@@ -15,6 +15,10 @@ class AlertService {
   async create(request, response) {
     const result = await this.repository.create(request.body);
 
+    if (result && !result.sucess && result.alertExist) {
+      response.status(406);
+    }
+
     response.send(result);
   }
 
