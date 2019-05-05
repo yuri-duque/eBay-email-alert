@@ -99,7 +99,7 @@ export default class FormComponent extends React.Component {
 
     if (!data.searchTerm) {
       window.alert("O Campo 'Produto' não estar vazio!");
-    } else if (!data.products === []) {
+    } else if (data.products.length == 0) {
       window.alert("Falha, o sistema não listou os produtos!");
     } else if (!data.email) {
       window.alert("O Campo 'Email' não estar vazio!");
