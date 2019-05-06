@@ -31,7 +31,7 @@ export default class FormComponent extends React.Component {
                   <tr>
                     <td>{alert.searchTerm}</td>
                     <td>{alert.email}</td>
-                    <td>{alert.timeInterval}</td>
+                    <td>{alert.timeInterval} Minutos</td>
                     {alert.products.map(product => (
                       <Table className="m-0">
                         <tbody>

@@ -50,17 +50,17 @@ class AlertService {
   async startupCronEmail() {
     // 2 minutos(120 segundos)
     setInterval(async () => {
-      await this.sendEmailByAlertInterval("120");
+      await this.sendEmailByAlertInterval("2");
     }, 120 * 1000);
 
     // 10 minutos(600 segundos)
     setInterval(async () => {
-      await this.sendEmailByAlertInterval("600");
+      await this.sendEmailByAlertInterval("10");
     }, 600 * 1000);
 
     // 30 minutos(1800 segundos)
     setInterval(async () => {
-      await this.sendEmailByAlertInterval("1800");
+      await this.sendEmailByAlertInterval("30");
     }, 1800 * 1000);
   }
 

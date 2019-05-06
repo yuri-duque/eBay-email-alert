@@ -11,7 +11,7 @@ export default class FormComponent extends React.Component {
     this.state = {
       products: [],
       searchTerm: "",
-      timeInterval: "120",
+      timeInterval: "2",
       email: ""
     };
   }
@@ -63,9 +63,9 @@ export default class FormComponent extends React.Component {
               onChange={e => this.setState({ timeInterval: e.target.value })}
               value={this.state.timeInterval}
             >
-              <option value="120">2 minutos</option>
-              <option value="600">10 minutos</option>
-              <option value="1800">30 minutos</option>
+              <option value="2">2 minutos</option>
+              <option value="10">10 minutos</option>
+              <option value="30">30 minutos</option>
             </Input>
           </FormGroup>
 
@@ -93,7 +93,7 @@ export default class FormComponent extends React.Component {
 
   async onSubmit() {
     //metodo chamado para garantir que o produto salvo é o produto inserido no input
-    this.onSearchChange();
+    const result = await this.onSearchChange(this.state.searchTerm);
 
     let data = {
       products: this.state.products,
@@ -110,13 +110,15 @@ export default class FormComponent extends React.Component {
   }
 
   async onSearchChange(searchTerm) {
-    const products = await this.requestGet(
-      "/searchProduct?searchTerm=",
-      searchTerm
-    );
-    this.setState({
-      products
-    });
+    if (searchTerm) {
+      const products = await this.requestGet(
+        "/searchProduct?searchTerm=",
+        searchTerm
+      );
+      this.setState({
+        products
+      });
+    }
   }
 
   requestGet(parameters, searchTerm) {
@@ -144,8 +146,8 @@ export default class FormComponent extends React.Component {
 
   validateResponse(response) {
     if (response.status === 200) {
-      window.alert("Alerta salvo com sucesso!");
       this.cleanState();
+      window.alert("Alerta salvo com sucesso!");
     } else if (response.response.status === 406) {
       window.alert(
         "Já existe um alerta cadastrado com esse produto para esse email!"
@@ -157,7 +159,7 @@ export default class FormComponent extends React.Component {
 
   validateInsertFields(data) {
     if (!data.searchTerm) {
-      window.alert("O Campo 'Produto' não estar vazio!");
+      window.alert("O Campo 'Produto' não pode estar vazio!");
       return false;
     } else if (data.products.length == 0) {
       window.alert("Nenhum produto foi encontrado!");
