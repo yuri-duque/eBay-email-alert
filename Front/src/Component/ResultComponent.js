@@ -29,7 +29,7 @@ export default class ResultComponent extends React.Component {
                     </td>
                     <td>
                       <p className="font-weight-bold">{product.categoryName}</p>
-                      <p>{product.currentPrice}</p>
+                      <p>US ${product.currentPrice}</p>
                       <a href={product.viewItemURL}>Vizualizar produto</a>
                     </td>
                   </tr>

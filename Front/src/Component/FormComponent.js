@@ -29,6 +29,7 @@ export default class FormComponent extends React.Component {
               name="SearchTerm"
               id="SearchTerm"
               placeholder="Nome ou caracteristica do produto"
+              maxLength="150"
               onBlur={e => {
                 this.onSearchChange(e.target.value);
               }}
@@ -45,6 +46,7 @@ export default class FormComponent extends React.Component {
               name="email"
               id="exampleEmail"
               placeholder="e-mail para o qual sera enviado o alerta"
+              maxLength="150"
               onChange={e => this.setState({ email: e.target.value })}
               value={this.state.email}
             />
@@ -90,6 +92,9 @@ export default class FormComponent extends React.Component {
   }
 
   async onSubmit() {
+    //metodo chamado para garantir que o produto salvo é o produto inserido no input
+    this.onSearchChange();
+
     let data = {
       products: this.state.products,
       searchTerm: this.state.searchTerm,
@@ -114,7 +119,7 @@ export default class FormComponent extends React.Component {
     });
   }
 
-  async requestGet(parameters, searchTerm) {
+  requestGet(parameters, searchTerm) {
     return axios
       .get(`${congif.url}${parameters}${searchTerm}`)
       .then(function(response) {
@@ -125,7 +130,7 @@ export default class FormComponent extends React.Component {
       });
   }
 
-  async requestPost(data) {
+  requestPost(data) {
     return axios
       .post(`${congif.url}`, data)
       .then(function(response) {
@@ -154,8 +159,8 @@ export default class FormComponent extends React.Component {
     if (!data.searchTerm) {
       window.alert("O Campo 'Produto' não estar vazio!");
       return false;
-    } else if (data.products.length == 0) {
-      window.alert("Falha, o sistema não listou os produtos!");
+    } else if (data.products.length === 0) {
+      window.alert("Nenhum produto foi encontrado!");
       return false;
     } else if (!data.email) {
       window.alert("O Campo 'Email' não estar vazio!");
