@@ -1,10 +1,11 @@
 # ebay-email-alert
+
 Aplicação gera alertas sobre preço de produtos de acordo com um alerta criado. O usuário informa uma frase de busca, um email e seleciona um intervalo e a aplicação o informa por email periodicamente sobre o preço de um produto desejado.
 
 
 # Inicializando projeto
 
-Comandos nescessários inicialização do projeto:
+Comandos necessários inicialização do projeto:
   
   > docker-compose up --build -d db
 	
@@ -35,7 +36,7 @@ Frontend (Front):
 
 eslint:
 
-	> pacote do npm, utilizado para formatar o codigo no padrão 'AiBNB styleguide'
+	> pacote do npm, utilizado para formatar o código no padrão 'AiBNB styleguide'
 	> documentação: https://www.npmjs.com/package/eslint
 	
 nodemailer:
@@ -70,7 +71,7 @@ axios:
 	
 Katalon Recorder:
 
-	> ferramenta para gravação e execução de testes de insterface automatizados de forma extremamente facilitada.
+	> ferramenta para gravação e execução de testes de interface automatizados de forma extremamente facilitada.
 	> documentação: https://www.katalon.com/resources-center/blog/katalon-automation-recorder/
   
   
@@ -79,7 +80,7 @@ Katalon Recorder:
 
 Foi utilizado a ferramenta Katalon recorder para gerar testes de interface.
 
-Como utilizalo no Google Chrome: 
+Como utilizá-lo no Google Chrome: 
 
 	> Acesse o link:  https://chrome.google.com/webstore/detail/katalon-recorder/ljdobmomdgdljniojadhoplhkpialdid
 	
@@ -87,14 +88,14 @@ Como utilizalo no Google Chrome:
 	
 	> Clique em "Adicionar extensão"
 	
-	> Após alguns segundos irá aparecer no canto superior direito do navegador o icone do Katalon, clique nele.
+	> Após alguns segundos irá aparecer no canto superior direito do navegador o ícone do Katalon, clique nele.
 	
-	> Aberto a extenção do Katalon, clique no icone de pasta que está ao lado direito do texto "Test Suites".
+	> Aberto a extensão do Katalon, clique no ícone de pasta que está ao lado direito do texto "Test Suites".
 	
 	> Após abir selecione o arquivo html com o nome "Testes funcionais - eBay-email-alert", que se encontra dentro da pasta "Test Katalon" que está rais do repositório. 
 	
 	> Para iniciar a execução dos testes basta clicar em "Play All"
 	
-OBS.: Observei durante os testes que os comandos relacionados a validação de alertas (AssestAlertPresent, e VerifyAlertPresent) são intermitentes, por isso em alguma exeução um teste pode falhar por essa inconsistencia.
+OBS.: Observei durante os testes que os comandos relacionados a validação de alertas (AssestAlertPresent, e VerifyAlertPresent) são intermitentes, por isso em alguma execução um teste pode falhar por essa inconsistência.
 
 
