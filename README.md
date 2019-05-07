@@ -67,7 +67,34 @@ axios:
 
 	> pacote do np, utilizado para realizar as requisições em promise para o backend
 	> documentação: https://www.npmjs.com/package/axios  
+	
+Katalon Recorder:
+
+	> ferramenta para gravação e execução de testes de insterface automatizados de forma extremamente facilitada.
+	> documentação: https://www.katalon.com/resources-center/blog/katalon-automation-recorder/
   
   
+
+# Testes automatizados
+
+Foi utilizado a ferramenta Katalon recorder para gerar testes de interface.
+
+Como utilizalo no Google Chrome: 
+
+	> Acesse o link:  https://chrome.google.com/webstore/detail/katalon-recorder/ljdobmomdgdljniojadhoplhkpialdid
+	
+	> Clique em "Usar no Chrome"
+	
+	> Clique em "Adicionar extensão"
+	
+	> Após alguns segundos irá aparecer no canto superior direito do navegador o icone do Katalon, clique nele.
+	
+	> Aberto a extenção do Katalon, clique no icone de pasta que está ao lado direito do texto "Test Suites".
+	
+	> Após abir selecione o arquivo html com o nome "Testes funcionais - eBay-email-alert", que se encontra dentro da pasta "Test 		Katalon" que está rais do repositório. 
+	
+	> Para iniciar a execução dos testes basta clicar em "Play All"
+	
+OBS.: Observei durante os testes que os comandos relacionados a validação de alertas (AssestAlertPresent, e VerifyAlertPresent) são intermitentes, por isso em alguma exeução um teste pode falhar por essa inconsistencia.
 
 
