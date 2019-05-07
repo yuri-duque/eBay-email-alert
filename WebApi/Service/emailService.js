@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 });
 
 class EmailService {
-  sendEmail(para, assunto, corpo) {
+  async sendEmail(para, assunto, corpo) {
     const mailOptions = {
       // Configuração necessária para o servidor de emails
       from: emailHost,
@@ -22,9 +22,9 @@ class EmailService {
       text: corpo
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    return transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        return error.message;
+        return null;
       }
       return info.response;
     });
