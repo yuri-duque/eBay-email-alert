@@ -91,7 +91,7 @@ Como utilizalo no Google Chrome:
 	
 	> Aberto a extenção do Katalon, clique no icone de pasta que está ao lado direito do texto "Test Suites".
 	
-	> Após abir selecione o arquivo html com o nome "Testes funcionais - eBay-email-alert", que se encontra dentro da pasta "Test 		Katalon" que está rais do repositório. 
+	> Após abir selecione o arquivo html com o nome "Testes funcionais - eBay-email-alert", que se encontra dentro da pasta "Test Katalon" que está rais do repositório. 
 	
 	> Para iniciar a execução dos testes basta clicar em "Play All"
 	
