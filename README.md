@@ -73,6 +73,7 @@ Katalon Recorder:
 
 	> ferramenta para gravação e execução de testes de interface automatizados de forma extremamente facilitada.
 	> documentação: https://www.katalon.com/resources-center/blog/katalon-automation-recorder/
+	> liata de comandos: https://docs.katalon.com/katalon-recorder/docs/selenese-selenium-ide-commands-reference.html
   
   
 
